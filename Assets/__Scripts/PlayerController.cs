@@ -13,11 +13,13 @@ public class PlayerController : MonoBehaviour {
 	public float gravityMultiplier = 2.5f;
 	public Text countText;
 	public Text winText;
+	public static float bottomY = -10f;
 
 	// Create private references to the rigidbody component on the player, and the count of pick up objects picked up so far
 	private Rigidbody rb;
 	private int count;
 	private bool isGrounded;
+	
 
 	// At the start of the game..
 	void Start ()
@@ -42,6 +44,11 @@ public class PlayerController : MonoBehaviour {
         {
             Jump();
         }
+		if ( transform.position.y < bottomY ) {
+            Destroy( this.gameObject );
+            winText.text = "You Lose.";
+        }
+		
     }
 
     // Each physics step..
