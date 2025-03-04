@@ -4,6 +4,7 @@
 using UnityEngine.UI;
 
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 	
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour {
 		if ( transform.position.y < bottomY ) {
             Destroy( this.gameObject );
             winText.text = "You Lose.";
+			SceneManager.LoadScene("Scene_1");
         }
 		
     }
@@ -94,6 +96,12 @@ public class PlayerController : MonoBehaviour {
 			// Run the 'SetCountText()' function (see below)
 			SetCountText ();
 		}
+		if (count >= 12 && other.gameObject.CompareTag("Finish")) 
+		{
+			// Set the text value of our 'winText'
+			winText.text = "You Win!";
+			Destroy(this.gameObject);
+		}
 	}
 	void Jump()
     {
@@ -107,13 +115,9 @@ public class PlayerController : MonoBehaviour {
 	void SetCountText()
 	{
 		// Update the text field of our 'countText' variable
-		countText.text = "Coins Collected: " + count.ToString() +"/12";
+		countText.text = "Coins Collected: " + count.ToString() +"/12. Reach the Flag.";
 
 		// Check if our 'count' is equal to or exceeded 12
-		if (count >= 12) 
-		{
-			// Set the text value of our 'winText'
-			winText.text = "You Win!";
-		}
+		
 	}
 }
